@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1  
+kind: Deployment
+metadata:
+  name: product-app
+  creationTimestamp: null
+  labels:
+     app: product-app
+     hystrix.enabled: "true"
+     hystrix.cluster: default
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: product-app
+        hystrix.enabled: "true"
+        hystrix.cluster: default
+    spec:
+      containers:
+        - name: product-app
+          image: gcr.io/kubeflix-poc/product-app:v1
+          ports:
+          - containerPort: 8080
